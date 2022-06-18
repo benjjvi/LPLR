@@ -6,7 +6,7 @@
 
 # TODO list
 
-# limiting
+# limiting (https://stackoverflow.com/questions/4565567/how-can-i-limit-ffmpeg-cpu-usage)
 # file grabbing (reuse dikkie fiets code)
 # scheduling
 
@@ -20,9 +20,9 @@ import platform
 import sys
 import os
 import pathlib
-import cv2
 import hashlib
-    
+import ffmpeg
+
 
 class Limited_FFmpeg:
     def __init__(self, os, nice_limit_level, cpu_limit_percentage, \
@@ -31,6 +31,8 @@ class Limited_FFmpeg:
         # save all variables to self
         self.video_codec = video_codec
         self.audio_codec = audio_codec
+        self.nice_limit_level = nice_limit_level
+        self.cpu_limit_percentage = cpu_limit_percentage
         # Run All checks
         checks.os_check(os)
         checks.nice_limit_level_check(nice_limit_level)
@@ -52,7 +54,6 @@ class Limited_FFmpeg:
         o = open("output", "r")
         output = o.read()
         o.close()
-        print(output)
         output = output.split("\n")
         
         cropDetectOutput = []
@@ -98,11 +99,14 @@ class Scraper():
         return all_files
 
     def get_video_width_and_height(self, path):
-        vid = cv2.VideoCapture(path)
-        height = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        width = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+        probe = ffmpeg.probe(path)
+        video_streams = [stream for stream in probe["streams"] if stream["codec_type"] == "video"]
 
-        return (int(width), int(height))
+        video_streams = video_streams[0]
+        width = video_streams["coded_width"]
+        height = video_streams["coded_height"]
+
+        return (width, height)
 
 
 class Runner():
@@ -128,20 +132,14 @@ class Runner():
                 crop_h = crop.split(":")[1]
                 
                 #get the files real aspect w and h
-                w, h = scraper_object.get_video_width_and_height("videos/example/tste.mp4")
+                w, h = scraper_object.get_video_width_and_height(video_file)
     
                 #get MD5 sum
                 MD5_sum = hashlib.md5(open(video_file, "rb").read()).hexdigest()
-                
+                MD5_sum = str(MD5_sum)
                 #store everything
-                mini_dict = {MD5_sum, [crop_w, crop_h], [w, h]}
-
-                print("=================================================")
-                print("============STORING THE FOLLOWING DATA===========")
-                print(video_file)
-                print(mini_dict)
-                print("=================================================")
-                print("=================================================")
+                mini_dict = {"md5": MD5_sum, "cropped_wh": [crop_w, crop_h], "real_wh": [w, h]}
+                
                 all_scanned_files[video_file] = mini_dict
     
             #lets save our new dictionary to a file incase everything goes to shit here
@@ -150,9 +148,6 @@ class Runner():
         else: #if the dictionary does exist
             with open("video_data.dict", "r") as file:
                 all_scanned_files = eval(file.read())
-
-        print(all_scanned_files)
-        print(type(all_scanned_files))
         
 
 if __name__ == "__main__":
@@ -198,9 +193,6 @@ if __name__ == "__main__":
         video_codec="copy", audio_codec="copy")
 
     scraper_object = Scraper("./videos")
-    
-   
 
-
-    runner = Runner(ffmpeg_object, scraper_object, 60*60) #hourly
+    runner = Runner(ffmpeg_object, scraper_object, 60*60) #rescan hourly
     runner.start()
