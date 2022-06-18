@@ -21,6 +21,7 @@ import sys
 import os
 import pathlib
 import cv2
+import hashlib
     
 
 class Limited_FFmpeg:
@@ -101,7 +102,7 @@ class Scraper():
         height = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
         width = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
 
-        return (height, width)
+        return (int(width), int(height))
 
 
 class Runner():
@@ -114,12 +115,45 @@ class Runner():
         # first, let's do the first scrape of the directory.
         video_files = self.scraper_object.get_all_video_files_in_directory_and_subdirectories()
 
-        # now, let's try and detect the crop ration for all of these files and transcode them if the crop is different to the original video aspect ratio.
-        all_scanned_files = {}
-        for video_file in video_files:
-            #get crop ration
-            inputfile, crop = self.ffmpeg_object.detect_crop_ratio(video_file)
-            #minidict = {inputfile, rec_crop, real_crop}
+        #check if we have already scanned files.
+        if not os.path.exists("video_data.dict"):
+            # lets detect the real and recommended ratio for these files. 
+            #let's also get an MD5 sum and store that with the file geometry
+            all_scanned_files = {}
+            for video_file in video_files:
+                #get crop ratio from ffmpeg
+                inputfile, crop = self.ffmpeg_object.detect_crop_ratio(video_file)
+                del inputfile #stop confusion
+                crop_w = crop.split(":")[0]
+                crop_h = crop.split(":")[1]
+                
+                #get the files real aspect w and h
+                w, h = scraper_object.get_video_width_and_height("videos/example/tste.mp4")
+    
+                #get MD5 sum
+                MD5_sum = hashlib.md5(open(video_file, "rb").read()).hexdigest()
+                
+                #store everything
+                mini_dict = {MD5_sum, [crop_w, crop_h], [w, h]}
+
+                print("=================================================")
+                print("============STORING THE FOLLOWING DATA===========")
+                print(video_file)
+                print(mini_dict)
+                print("=================================================")
+                print("=================================================")
+                all_scanned_files[video_file] = mini_dict
+    
+            #lets save our new dictionary to a file incase everything goes to shit here
+            with open("video_data.dict", "w") as file:
+                file.write(str(all_scanned_files))
+        else: #if the dictionary does exist
+            with open("video_data.dict", "r") as file:
+                all_scanned_files = eval(file.read())
+
+        print(all_scanned_files)
+        print(type(all_scanned_files))
+        
 
 if __name__ == "__main__":
     # Pre-load checks:
@@ -136,12 +170,28 @@ if __name__ == "__main__":
         
     
     #FFMPEG USAGE
+
+    #1. DETECTING CROP
     #inputfile, crop = ffmpeg_object.detect_crop_ratio("videos/example/tste.mp4")
-    #print(crop)
+
+    #2. CROPPING VIDEO
     #ffmpegItem.crop("videos/example/tste.mp4", "videos/example/cropped.mp4", crop)
 
+    #3. DETECTING CROP, EXTRACTING WIDTH AND HEIGHT, AND PRINTING TO CONSOLE
+    #inputfile, crop = ffmpeg_object.detect_crop_ratio("videos/example/tste.mp4")
+    #w = crop.split(":")[0]
+    #h = crop.split(":")[1]
+    #print(w, h)
+
     #SCRAPER USAGE
+    #1. GET ALL THE VIDEO FILES IN A DIRECTORY AND SUBDIRECTORIES BASED ON THE PATH INPUT WHEN CREATING THE SCRAPER OBJECT
     #scraper.get_all_video_files_in_directory_and_subdirectories()
+        
+    #2. GET WIDTH AND HEIGHT OF A VIDEO (INCLUDING LETTERBOXING)
+    #w, h = scraper_object.get_video_width_and_height("videos/example/tste.mp4")
+    #w = int(w)
+    #h = int(h)
+    #print(w, h)
 
     ffmpeg_object = Limited_FFmpeg(os=platform.system(), \
         nice_limit_level=10, cpu_limit_percentage=30, ffmpeg_threads=1, \
@@ -149,12 +199,8 @@ if __name__ == "__main__":
 
     scraper_object = Scraper("./videos")
     
-    inputfile, crop = ffmpeg_object.detect_crop_ratio("videos/example/tste.mp4")
-    print(crop)
+   
 
-    scraper_object.get_video_width_and_height()
 
-    
-
-    #runner = Runner(ffmpeg_object, scraper_object, 60*60) #hourly
-    #runner.start()
+    runner = Runner(ffmpeg_object, scraper_object, 60*60) #hourly
+    runner.start()
