@@ -7,7 +7,6 @@
 # TODO list
 
 # limiting (https://stackoverflow.com/questions/4565567/how-can-i-limit-ffmpeg-cpu-usage)
-# file grabbing (reuse dikkie fiets code)
 # scheduling
 
 
@@ -63,7 +62,7 @@ class Limited_FFmpeg:
         
         ratios = []
         for item in cropDetectOutput:
-            x = substring(item, "crop=")
+            x = substring(item, "crop=") #substring gets everything after the provided text from item
             ratios.append(x)
 
         reccomended_crop = listmanipulation.most_frequent(ratios)
@@ -148,6 +147,11 @@ class Runner():
         else: #if the dictionary does exist
             with open("video_data.dict", "r") as file:
                 all_scanned_files = eval(file.read())
+
+        # now, lets go through all the files and try and encode all that need encoding for improper
+        #aspect ratios
+        for item in all_scanned_files:
+            pass
         
 
 if __name__ == "__main__":
