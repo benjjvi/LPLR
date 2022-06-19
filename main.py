@@ -118,40 +118,57 @@ class Runner():
         # first, let's do the first scrape of the directory.
         video_files = self.scraper_object.get_all_video_files_in_directory_and_subdirectories()
 
-        #check if we have already scanned files.
-        if not os.path.exists("video_data.dict"):
-            # lets detect the real and recommended ratio for these files. 
-            #let's also get an MD5 sum and store that with the file geometry
-            all_scanned_files = {}
-            for video_file in video_files:
-                #get crop ratio from ffmpeg
-                inputfile, crop = self.ffmpeg_object.detect_crop_ratio(video_file)
-                del inputfile #stop confusion
-                crop_w = crop.split(":")[0]
-                crop_h = crop.split(":")[1]
-                
-                #get the files real aspect w and h
-                w, h = scraper_object.get_video_width_and_height(video_file)
-    
-                #get MD5 sum
-                MD5_sum = hashlib.md5(open(video_file, "rb").read()).hexdigest()
-                MD5_sum = str(MD5_sum)
-                #store everything
-                mini_dict = {"md5": MD5_sum, "cropped_wh": [crop_w, crop_h], "real_wh": [w, h]}
-                
-                all_scanned_files[video_file] = mini_dict
-    
-            #lets save our new dictionary to a file incase everything goes to shit here
-            with open("video_data.dict", "w") as file:
-                file.write(str(all_scanned_files))
-        else: #if the dictionary does exist
-            with open("video_data.dict", "r") as file:
-                all_scanned_files = eval(file.read())
+        # lets detect the real and recommended ratio for these files. 
+        #let's also get an MD5 sum and store that with the file geometry
+        all_scanned_files = {}
+        for video_file in video_files:
+            #get crop ratio from ffmpeg
+            inputfile, crop = self.ffmpeg_object.detect_crop_ratio(video_file)
+            del inputfile #stop confusion
+            crop_w = crop.split(":")[0]
+            crop_h = crop.split(":")[1]
+            
+            #get the files real aspect w and h
+            w, h = scraper_object.get_video_width_and_height(video_file)
 
+            #get MD5 sum
+            MD5_sum = hashlib.md5(open(video_file, "rb").read()).hexdigest()
+            MD5_sum = str(MD5_sum)
+            #store everything
+            mini_dict = {"md5": MD5_sum, "cropped_wh": [int(crop_w), int(crop_h)], "real_wh": [int(w), int(h)], "cropdetect": crop}
+            
+            all_scanned_files[video_file] = mini_dict
+
+                
         # now, lets go through all the files and try and encode all that need encoding for improper
         #aspect ratios
         for item in all_scanned_files:
-            pass
+            currentdict = all_scanned_files[item]
+
+            if currentdict["cropped_wh"] != currentdict["real_wh"]:
+                print(f"{item} does not fit its reccomended aspect ratio.")
+                print(f"Attempting to crop {item}.")
+                outfilename = item.split("/")
+                filename = outfilename[-1]
+                del outfilename[-1]
+                splitfilename = filename.split(".")
+                format = "."+ splitfilename[-1]
+                splitfilename.remove(splitfilename[-1])
+                splitfilename.append("-CROPPED")
+                splitfilename.append(format)
+                print(splitfilename)
+
+                filename = ""
+                for x in outfilename:
+                    filename = filename + x + "/"
+                for x in splitfilename:
+                    filename = filename + x
+                print(filename)
+                self.ffmpeg_object.crop(item, filename, currentdict["cropdetect"])
+
+                #once the video is cropped, lets delete the old video and rename the cropped video to the old filename
+
+
         
 
 if __name__ == "__main__":
