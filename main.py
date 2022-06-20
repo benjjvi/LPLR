@@ -4,11 +4,6 @@
 
 # Linux Edition
 
-# TODO list
-
-# limiting (https://stackoverflow.com/questions/4565567/how-can-i-limit-ffmpeg-cpu-usage)
-# scheduling
-
 
 import checks
 import lplrsysinfo
