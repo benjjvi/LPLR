@@ -1,5 +1,7 @@
 # LPLR: Low Powered Letterbox Remover
 
+[View LPLR on replit.com](https://replit.com/@bildsben/LPLR)
+
 ## Who?
 Built by me (bildsben).
 
