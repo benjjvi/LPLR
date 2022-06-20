@@ -1,0 +1,190 @@
+ffmpeg version 4.4.1 Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 10.3.0 (GCC)
+  configuration: --disable-static --prefix=/nix/store/7x62j0rls5dpriig91qrk0qh7hvvqd7k-ffmpeg-4.4.1 --arch=x86_64 --target_os=linux --enable-gpl --enable-version3 --enable-shared --enable-pic --enable-libsrt --enable-runtime-cpudetect --enable-hardcoded-tables --enable-pthreads --disable-w32threads --disable-os2threads --enable-network --enable-pixelutils --enable-ffmpeg --disable-ffplay --enable-ffprobe --enable-avcodec --enable-avdevice --enable-avfilter --enable-avformat --enable-avresample --enable-avutil --enable-postproc --enable-swresample --enable-swscale --disable-doc --enable-libass --enable-bzlib --enable-gnutls --enable-fontconfig --enable-libfreetype --enable-libmp3lame --enable-iconv --enable-libtheora --enable-libssh --enable-vaapi --enable-libdrm --enable-vdpau --enable-libvorbis --enable-libvpx --enable-lzma --disable-opengl --disable-libmfx --disable-libaom --enable-libpulse --enable-sdl2 --enable-libsoxr --enable-libx264 --enable-libxvid --enable-zlib --enable-libopus --enable-libspeex --enable-libx265 --enable-libdav1d --disable-debug --enable-optimizations --disable-extra-warnings --disable-stripping
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'videos/example/Bak (copy).mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.76.100
+  Duration: 00:00:58.22, start: 0.000000, bitrate: 1013 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x320 [SAR 1:1 DAR 4:1], 746 kb/s, 60 fps, 60 tbr, 15360 tbn, 120 tbc (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 254 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))
+  Stream #0:1 -> #0:1 (aac (native) -> pcm_s16le (native))
+  Stream #0:0 -> #1:0 (h264 (native) -> h264 (libx264))
+  Stream #0:1 -> #1:1 (aac (native) -> aac (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.76.100
+  Stream #0:0(und): Video: wrapped_avframe, yuv420p(tv, bt709, progressive), 1280x320 [SAR 1:1 DAR 4:1], q=2-31, 200 kb/s, 60 fps, 60 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc58.134.100 wrapped_avframe
+  Stream #0:1(und): Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc58.134.100 pcm_s16le
+[libx264 @ 0x239c880] using SAR=1/1
+[libx264 @ 0x239c880] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0x239c880] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 0x239c880] 264 - core 163 - H.264/MPEG-4 AVC codec - Copyleft 2003-2021 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=9 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #1, mp4, to 'tmp.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf58.76.100
+  Stream #1:0(und): Video: h264 (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x320 [SAR 1:1 DAR 4:1], q=2-31, 60 fps, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc58.134.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #1:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc58.134.100 aac
+frame=    1 fps=0.0 q=-0.0 q=0.0 size=N/A time=00:00:00.01 bitrate=N/A speed=0.36x    frame=    1 fps=0.0 q=-0.0 q=0.0 size=N/A time=00:00:00.01 bitrate=N/A speed=0.0192x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:512 t:0.033333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:768 t:0.050000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:1024 t:0.066667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:1280 t:0.083333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:1536 t:0.100000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:1792 t:0.116667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:2048 t:0.133333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:2304 t:0.150000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:2560 t:0.166667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:2816 t:0.183333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:3072 t:0.200000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:3328 t:0.216667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:3584 t:0.233333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:3840 t:0.250000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:4096 t:0.266667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:4352 t:0.283333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:4608 t:0.300000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:4864 t:0.316667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:5120 t:0.333333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:5376 t:0.350000 crop=1280:320:0:0
+frame=   22 fps= 12 q=-0.0 q=0.0 size=N/A time=00:00:00.36 bitrate=N/A speed=0.203x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:5632 t:0.366667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:5888 t:0.383333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:6144 t:0.400000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:6400 t:0.416667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:6656 t:0.433333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:6912 t:0.450000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:7168 t:0.466667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:7424 t:0.483333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:7680 t:0.500000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:7936 t:0.516667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:8192 t:0.533333 crop=1280:320:0:0
+frame=   33 fps= 12 q=-0.0 q=0.0 size=N/A time=00:00:00.55 bitrate=N/A speed= 0.2x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:8448 t:0.550000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:8704 t:0.566667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:8960 t:0.583333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:9216 t:0.600000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:9472 t:0.616667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:9728 t:0.633333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:9984 t:0.650000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:10240 t:0.666667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:10496 t:0.683333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:10752 t:0.700000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:11008 t:0.716667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:11264 t:0.733333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:11520 t:0.750000 crop=1280:320:0:0
+frame=   46 fps=9.9 q=-0.0 q=0.0 size=N/A time=00:00:00.76 bitrate=N/A speed=0.165x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:11776 t:0.766667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:12032 t:0.783333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:12288 t:0.800000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:12544 t:0.816667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:12800 t:0.833333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:13056 t:0.850000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:13312 t:0.866667 crop=1280:320:0:0
+frame=   53 fps=9.3 q=-0.0 q=0.0 size=N/A time=00:00:00.88 bitrate=N/A speed=0.155x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:13568 t:0.883333 crop=1280:320:0:0
+frame=   54 fps=8.0 q=-0.0 q=31.0 size=N/A time=00:00:00.90 bitrate=N/A speed=0.134x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:13824 t:0.900000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:14080 t:0.916667 crop=1280:320:0:0
+frame=   56 fps=7.2 q=-0.0 q=31.0 size=N/A time=00:00:00.93 bitrate=N/A speed=0.12x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:14336 t:0.933333 crop=1280:320:0:0
+frame=   57 fps=6.7 q=-0.0 q=31.0 size=N/A time=00:00:00.95 bitrate=N/A speed=0.111x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:14592 t:0.950000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:14848 t:0.966667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:15104 t:0.983333 crop=1280:320:0:0
+frame=   60 fps=6.3 q=-0.0 q=31.0 size=N/A time=00:00:01.00 bitrate=N/A speed=0.105x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:15360 t:1.000000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:15616 t:1.016667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:15872 t:1.033333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:16128 t:1.050000 crop=1280:320:0:0
+frame=   64 fps=6.1 q=-0.0 q=31.0 size=N/A time=00:00:01.06 bitrate=N/A speed=0.101x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:16384 t:1.066667 crop=1280:320:0:0
+frame=   65 fps=5.7 q=-0.0 q=31.0 size=N/A time=00:00:01.08 bitrate=N/A speed=0.0952x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:16640 t:1.083333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:16896 t:1.100000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:17152 t:1.116667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:17408 t:1.133333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:17664 t:1.150000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:17920 t:1.166667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:18176 t:1.183333 crop=1280:320:0:0
+frame=   72 fps=5.8 q=-0.0 q=31.0 size=N/A time=00:00:01.20 bitrate=N/A speed=0.0965x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:18432 t:1.200000 crop=1280:320:0:0
+frame=   73 fps=5.5 q=-0.0 q=31.0 size=N/A time=00:00:01.21 bitrate=N/A speed=0.0912x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:18688 t:1.216667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:18944 t:1.233333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:19200 t:1.250000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:19456 t:1.266667 crop=1280:320:0:0
+frame=   77 fps=5.3 q=-0.0 q=31.0 size=N/A time=00:00:01.28 bitrate=N/A speed=0.0891x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:19712 t:1.283333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:19968 t:1.300000 crop=1280:320:0:0
+frame=   79 fps=5.2 q=-0.0 q=31.0 size=N/A time=00:00:01.31 bitrate=N/A speed=0.086x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:20224 t:1.316667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:20480 t:1.333333 crop=1280:320:0:0
+frame=   81 fps=5.0 q=-0.0 q=31.0 size=N/A time=00:00:01.35 bitrate=N/A speed=0.0832x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:20736 t:1.350000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:20992 t:1.366667 crop=1280:320:0:0
+frame=   83 fps=4.8 q=-0.0 q=31.0 size=N/A time=00:00:01.38 bitrate=N/A speed=0.0804x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:21248 t:1.383333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:21504 t:1.400000 crop=1280:320:0:0
+frame=   85 fps=4.7 q=-0.0 q=31.0 size=N/A time=00:00:01.41 bitrate=N/A speed=0.0778x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:21760 t:1.416667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:22016 t:1.433333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:22272 t:1.450000 crop=1280:320:0:0
+frame=   88 fps=4.6 q=-0.0 q=31.0 size=N/A time=00:00:01.46 bitrate=N/A speed=0.0766x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:22528 t:1.466667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:22784 t:1.483333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:23040 t:1.500000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:23296 t:1.516667 crop=1280:320:0:0
+frame=   92 fps=4.6 q=-0.0 q=31.0 size=N/A time=00:00:01.53 bitrate=N/A speed=0.0763x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:23552 t:1.533333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:23808 t:1.550000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:24064 t:1.566667 crop=1280:320:0:0
+frame=   95 fps=4.3 q=-0.0 q=31.0 size=N/A time=00:00:01.58 bitrate=N/A speed=0.0721x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:24320 t:1.583333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:24576 t:1.600000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:24832 t:1.616667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:25088 t:1.633333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:25344 t:1.650000 crop=1280:320:0:0
+frame=  100 fps=4.3 q=-0.0 q=31.0 size=N/A time=00:00:01.66 bitrate=N/A speed=0.0725x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:25600 t:1.666667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:25856 t:1.683333 crop=1280:320:0:0
+frame=  102 fps=4.3 q=-0.0 q=31.0 size=N/A time=00:00:01.70 bitrate=N/A speed=0.0708x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:26112 t:1.700000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:26368 t:1.716667 crop=1280:320:0:0
+frame=  104 fps=4.2 q=-0.0 q=31.0 size=N/A time=00:00:01.73 bitrate=N/A speed=0.0693x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:26624 t:1.733333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:26880 t:1.750000 crop=1280:320:0:0
+frame=  106 fps=4.1 q=-0.0 q=31.0 size=N/A time=00:00:01.76 bitrate=N/A speed=0.068x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:27136 t:1.766667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:27392 t:1.783333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:27648 t:1.800000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:27904 t:1.816667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:28160 t:1.833333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:28416 t:1.850000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:28672 t:1.866667 crop=1280:320:0:0
+frame=  113 fps=4.2 q=-0.0 q=31.0 size=N/A time=00:00:01.88 bitrate=N/A speed=0.0698x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:28928 t:1.883333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:29184 t:1.900000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:29440 t:1.916667 crop=1280:320:0:0
+frame=  116 fps=4.2 q=-0.0 q=31.0 size=N/A time=00:00:01.93 bitrate=N/A speed=0.0694x    [Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:29696 t:1.933333 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:29952 t:1.950000 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:30208 t:1.966667 crop=1280:320:0:0
+[Parsed_cropdetect_0 @ 0x2865f40] x1:0 x2:1279 y1:0 y2:319 w:1280 h:320 x:0 y:0 pts:30464 t:1.983333 crop=1280:320:0:0
+frame=  120 fps=4.2 q=-0.0 q=31.0 size=N/A time=00:00:02.00 bitrate=N/A speed=0.0696x    

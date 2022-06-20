@@ -3,6 +3,7 @@
     pkgs.python38Full
     pkgs.ffmpeg.bin
     pkgs.htop
+    pkgs.cpulimit
   ];
   env = {
     PYTHON_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [

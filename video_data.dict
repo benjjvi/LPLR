@@ -1,1 +1,0 @@
-{'videos/example/tste.mp4': {'md5': '0e04d335984c18c8bbc774d9da16efce', 'cropped_wh': [1280, 320], 'real_wh': [1280, 720]}, 'videos/example/cropped.mp4': {'md5': 'e78d491635aedb94b4a0c907a0b61c9a', 'cropped_wh': [1280, 320], 'real_wh': [1280, 320]}}
