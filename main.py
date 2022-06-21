@@ -4,11 +4,15 @@
 
 # Linux Edition
 
+# todo
+# finish variable assignment in the main func
+# make it better
 
 import checks
 import lplrsysinfo
 from substring import substring_after as substring
 import listmanipulation
+from elegant import ElegantExit
 
 import platform
 import sys
@@ -262,8 +266,20 @@ if __name__ == "__main__":
     #h = int(h)
     #print(w, h)
 
+    nll = input("Enter a limit level to use with NICE to set priority.\n-20 is the highest priority, and 19 is the lowest priority.")
+
+    try:
+        nll = int(nll)
+    except Exception:
+        ElegantExit(104)
+
+    if nll < -20 or nll > 19:
+        ElegantExit(104)
+
+    
+
     ffmpeg_object = Limited_FFmpeg(os=platform.system(), \
-        nice_limit_level=10, cpu_limit_percentage=5, ffmpeg_threads=1, \
+        nice_limit_level=nll, cpu_limit_percentage=20, ffmpeg_threads=2, \
         video_codec="copy", audio_codec="copy")
 
     scraper_object = Scraper("./videos")
