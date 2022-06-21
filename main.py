@@ -56,7 +56,8 @@ class Limited_FFmpeg:
 
         #run command
 
-        cmd = f"nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -ss {start_frames} -t {detect_frames} -i '{inputfile}' -vf cropdetect -f null - tmp.mp4 > output 2>&1"
+        cmd = f'nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -ss {start_frames} -t {detect_frames} -i "{inputfile}" -vf cropdetect -f null - tmp.mp4 > output 2>&1'
+        # note for command: some file names may contain a ' for example in the word everybody's. wrapping the command in a '' instead of a """allows us to use the "inside the code
         print(f"Running command \n{cmd}")
         os.system(cmd)
 
@@ -89,10 +90,11 @@ class Limited_FFmpeg:
     def crop(self, inputfile, output, crop):
         #ffmpeg -i input.mp4 -vf crop=1280:720:0:0 -c:a copy output.mp4
         if self.video_codec == "copy" and self.audio_codec == "copy":
-            command = f"nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -i '{inputfile}' -vf crop={crop} -c:a copy '{output}'"
-        else:
-            command = f"nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -i '{inputfile}' -vf crop={crop} -vcodec {self.video_codec} -acodec {self.audio_codec} '{output}'"
+            command = f'nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -i "{inputfile}" -vf crop={crop} -c:a copy "{output}"'
 
+        else:
+            #command = f"nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -i '"inputfile}'"-vf crop={crop} -vcodec {self.video_codec} -acodec {self.audio_codec} '"output}"
+            command = f'nice -n {self.nice_limit_level} cpulimit -f -l {self.cpu_limit_percentage} -- ffmpeg -y -threads {self.ffmpeg_threads} -i "{inputfile}" -vf crop={crop} -vcodec {self.video_codec} -acodec {self.audio_codec} "{output}'
         print(f"Using command \n{command}")
         os.system(command)
         
