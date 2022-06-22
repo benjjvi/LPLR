@@ -2,6 +2,9 @@
 
 [View LPLR on replit.com](https://replit.com/@bildsben/LPLR)
 
+[View a demonstration of LPLR on Replit](https://youtu.be/pz9v0jDWZGM)
+
+
 ## Who?
 Built by me (bildsben).
 

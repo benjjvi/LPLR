@@ -21,6 +21,7 @@ import pathlib
 import hashlib
 import ffmpeg
 import time
+import pprint
 
 
 class Limited_FFmpeg:
@@ -137,7 +138,7 @@ class Runner():
         self.ffmpeg_object = ffmpeg_object
         self.scraper_object = scraper_object
         self.refresh_interval = refresh_interval * 60 #min -> sec
-        print(f"Refreshing library every {self.refresh_interval} minute(s).")
+        print(f"Refreshing library every {self.refresh_interval/60} minute(s).")
 
     def generate_dictionary(self):
         # first, let's do the first scrape of the directory.
@@ -240,7 +241,25 @@ if __name__ == "__main__":
         print("LPLR prining VERBOSE information now.")
         lplrsysinfo.print_all_sysinfo()
         exit(0)
-        
+
+    # 3. Dictionary Requested
+    if "--dictionary" in sys.argv or "-gd" in sys.argv:
+        print("LPLR generating and printing dictionary infromation now.")
+        print("Beware: Generating Dictionary has very high limiting. This may effect system performance.")
+        scraper_object = Scraper(input("Directory to scan?\n> "))
+        ffmpeg_object = Limited_FFmpeg(os=platform.system(), \
+            nice_limit_level=-20, cpu_limit_percentage=100, ffmpeg_threads=2, \
+            video_codec="copy", audio_codec="copy")
+        runner = Runner(ffmpeg_object, scraper_object, 99) #rescan does not matter
+        dict = runner.generate_dictionary()
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(str(dict))
+
+        with open("DumpedData.json", "w") as jsonfile:
+            jsonfile.write(str(dict))
+        print("\n\n\nThis dictionary can also be found in the file named DumpedData.json")
+
+        exit(0)
     
     #FFMPEG USAGE
 
@@ -347,7 +366,7 @@ if __name__ == "__main__":
     
     scraper_object = Scraper(video_dir)
 
-    runner = Runner(ffmpeg_object, scraper_object, 1) #rescan every x minutes
+    runner = Runner(ffmpeg_object, scraper_object, 60) #rescan every x minutes
     try:
         runner.start()
     except Exception:
