@@ -55,8 +55,8 @@ class Limited_FFmpeg:
         print("Audio Codec Fine")
         
     def detect_crop_ratio(self, inputfile):
-        start_frames = "00:00:20" # start scanning at first 20 seconds
-        detect_frames = "00:00:02" # 2 seconds after first 20 seconds skipped. 60 frames @30fps, 120 frames @60fps
+        start_frames = "00:02:00" # start scanning after first 2 minutes
+        detect_frames = "00:01:00" # 60 seconds after first 2 minutes skipped. 1800 frames @30fps, 3600 frames @60fps
 
         #run command
 
