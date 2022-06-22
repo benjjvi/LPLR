@@ -4,11 +4,15 @@
 
 # Linux Edition
 
+# todo
+# finish variable assignment in the main func
+# make it better
 
 import checks
 import lplrsysinfo
 from substring import substring_after as substring
 import listmanipulation
+from elegant import ElegantExit
 
 import platform
 import sys
@@ -51,8 +55,8 @@ class Limited_FFmpeg:
         print("Audio Codec Fine")
         
     def detect_crop_ratio(self, inputfile):
-        start_frames = "00:00:20" # start scanning at first 20 seconds
-        detect_frames = "00:00:02" # 2 seconds after first 20 seconds skipped. 60 frames @30fps, 120 frames @60fps
+        start_frames = "00:02:00" # start scanning after first 2 minutes
+        detect_frames = "00:01:00" # 60 seconds after first 2 minutes skipped. 1800 frames @30fps, 3600 frames @60fps
 
         #run command
 
@@ -262,11 +266,86 @@ if __name__ == "__main__":
     #h = int(h)
     #print(w, h)
 
+    #Nice Limit Level
+    nll = input("Enter a limit level to use with NICE to set priority.\n-20 is the highest priority, and 19 is the lowest priority.\n> ")
+
+    try:
+        nll = int(nll)
+    except Exception:
+        ElegantExit(104)
+
+    if nll < -20 or nll > 19:
+        ElegantExit(104)
+
+    if nll <= 0:
+        print("Nice Limit Level is 0 or below. This could cause the FFmpeg video encoding to use up more resources. Make sure your system can handle these loads.")
+
+    print()
+
+    #CPU Limit Level
+    cpull = input("Enter a limit level to use with CPU Limiting.\n0 will cause the program not to run. It is not recommended to use less than 10 CPU and more than 60 (to keep LPLR truly Low Power).\n> ")
+
+    try:
+        cpull = int(cpull)
+    except Exception:
+        ElegantExit(104)
+
+    if cpull <= 0:
+        ElegantExit(105)
+    
+    if cpull <= 10:
+        print("CPU Limit Level extremely low. Expect commands to take hours, if not days to execute.")
+    if cpull >= 60:
+        print("CPU Limit Level extremely high. Expect CPU usage to increase extremely when running FFmpeg commands.")
+
+    print()
+
+    #FFmpeg Threads
+    ffthreads = input("Enter how many threads FFmpeg should use.\n0 will cause the program to default to maximum threads. Be warned.\nIt is not reccomended to use more than 4 to keep LPLR truly low powered.\n> ")
+
+    try:
+        ffthreads = int(ffthreads)
+    except Exception:
+        ElegantExit(104)
+
+    if ffthreads >= 4:
+        print("FFmpeg Threads extremely high. Expect CPU/GPU usage to increase extremely when running FFmpeg commands.")
+
+    print()
+    #Audio/Video codecs.
+    video_codecs = ["h261", "h263", "h263i", "h264p", "h264", "hevc", "mpeg1video", "mpeg2video", "mpeg4", "vp8", "vp9", "wmv3", "copy"]
+    audio_codecs = ["aac", "ac3", "alac", "mp1", "mp2", "mp3", "mp4als", "opus", "vorbis", "wmalossless", "wmapro", "wmav1", "wmav2", "copy"]
+
+    print("You will now be asked to enter a video and audio codec to use when encoding FFmpeg video.\nIf you do not know what you should use, use the choices of h264 for video, and ac3 for audio.\nNote that if you choose to use the 'copy' codec, your audio and video streams will be the same codec that the video is currently encoded in. This allows for encode times to be much quicker, but can lead to less stability.\nRemember, if in doubt, use h264 and ac3.")
+
+    print()
+    print("Enter a video codec to be used when encoding FFmpeg videos. Your choices are: ")
+    for codec in video_codecs:
+        print(codec)
+    vcodec = input("\nEnter Codec > ")
+
+    if vcodec not in video_codecs:
+        print(f"{vcodec} not in allowed video codecs.")
+        ElegantExit(104)
+
+    print()
+    print("Enter an audio codec to be used when encoding FFmpeg videos. Your choices are: ")
+    for codec in audio_codecs:
+        print(codec)
+    acodec = input("\nEnter Codec > ")
+
+    if acodec not in audio_codecs:
+        print(f"{acodec} not in allowed audio codecs.")
+        ElegantExit(104)
+        
     ffmpeg_object = Limited_FFmpeg(os=platform.system(), \
-        nice_limit_level=10, cpu_limit_percentage=5, ffmpeg_threads=1, \
+        nice_limit_level=nll, cpu_limit_percentage=cpull, ffmpeg_threads=ffthreads, \
         video_codec="copy", audio_codec="copy")
 
-    scraper_object = Scraper("./videos")
+    print()
+    video_dir = input("One final question. What directory should we scan for your video files? Some examples are shown below. You may also use full UNIX paths.\n. - Current Directory\n./Videos - The videos folder in the current directory\n.. - The previous folder that contains LPLR.\n../Videos - The folder videos in the folder that contains LPLR and the videos folder.\n\nEnter your folder > ")
+    
+    scraper_object = Scraper(video_dir)
 
     runner = Runner(ffmpeg_object, scraper_object, 1) #rescan every x minutes
     try:
